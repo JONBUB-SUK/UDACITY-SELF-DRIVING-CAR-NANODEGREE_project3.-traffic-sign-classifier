@@ -8,7 +8,11 @@
 
 [image2]: ./images/결과.png "RESULT OF PREDICTION"
 
-
+[image3-1]: ./images/resized_traffic_sign_1.png "download image1"
+[image3-2]: ./images/resized_traffic_sign_2.png "download image2"
+[image3-3]: ./images/resized_traffic_sign_3.png "download image3"
+[image3-4]: ./images/resized_traffic_sign_4.png "download image4"
+[image3-5]: ./images/resized_traffic_sign_5.png "download image5"
 
 
 
@@ -40,7 +44,9 @@ This is histogram of each dataset classes distribution
 [ image source : Ryein Goddard github (https://github.com/Goddard/udacity-traffic-sign-classifier)]
 
 
+
 I defined LeNet function that has already knwon architecture to train model
+
 
 | Layer         		|     Description	        					|
 |:---------------------:|:---------------------------------------------:|
@@ -61,10 +67,14 @@ I defined LeNet function that has already knwon architecture to train model
 
 And finally I tested this model to classify 5 really German traffic sign download at google image
 
+![alt text][image3-1] ![alt text][image3-2] ![alt text][image3-3] ![alt text][image3-4] ![alt text][image3-5]
+
 
 # Background Learning
 
-
+* Deep Learning
+* LeNet architecture
+* Tensorflow
 
 # Results
 
@@ -77,9 +87,7 @@ I searched German traffic sign, thats because I trained by german traffic sign i
 
 Below is result of prediction
 
-(사진으로 설명 : 5장의 실제 표지판과 예측한 표지판의 비교)
-
-
+![alt text][image2]
 
 
 
@@ -89,7 +97,7 @@ As a result, although accuracy of test set was almost 93%, and I thought it was 
 
 my model was not good at prediction for new images
 
-Below is the reason I thought why prediction for new images is not good
+Below is the reason I thought, why prediction for new images was not good
 
 1. I had to preprocess train images like turn it to gray scale
 
@@ -97,14 +105,6 @@ Because I trained using RGB images, that means it has 3 times diversities, compl
 
 So it maybe more difficult to apply new one
 
-2. Like the preceding, new german traffic sign 
-
-
-
-Drop out 은 오히려 성능이 안좋아 지더라
-
-sub sampling 으로 max pooling 이 적절했다
-
-여러번 튜닝해본 결과 12epoch 이 과적합을 피할 수 있었다
+2. After trying several times, 12 epoch has best accuracy
 
 
