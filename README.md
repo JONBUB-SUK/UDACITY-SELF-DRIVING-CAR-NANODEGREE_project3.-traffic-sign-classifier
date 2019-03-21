@@ -37,7 +37,7 @@ This is histogram of each dataset classes distribution
 
 ![alt text][image1-3]
 
-(사진 3개  출처 : Ryein Goddard github)
+[ image source : Ryein Goddard github (https://github.com/Goddard/udacity-traffic-sign-classifier)]
 
 
 I defined LeNet function that has already knwon architecture to train model
