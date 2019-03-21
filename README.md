@@ -1,5 +1,17 @@
 # UDACITY-SELF-DRIVING-CAR-NANODEGREE_project3.-traffic-sign-classifier
 
+[//]: # (Image References)
+
+[image1-1]: ./images/2-train-dataset-graph.png "HISTOGRAM OF TRAIN DATA"
+[image1-2]: ./images/3-test-dataset-graph.png "HISTOGRAM OF TEST DATA"
+[image1-3]: ./images/4-valid-dataset-graph.png "HISTOGRAM OF VALID DATA"
+
+[image2]: ./images/결과.png "RESULT OF PREDICTION"
+
+
+
+
+
 # Introduction
 This project onject is making traffic sign classifier by using tensorflow and accuracy of validation set have to upper than 93%
 
@@ -18,6 +30,12 @@ Each set have 43 classes, that means there are 43 sort of traffic signs
 And shape of each images is (32,32,3), that means image size is (32,32) and it has RGB channels
 
 This is histogram of each dataset classes distribution
+
+![alt text][image1-1]
+
+![alt text][image1-2]
+
+![alt text][image1-3]
 
 (사진 3개  출처 : Ryein Goddard github)
 
@@ -41,9 +59,7 @@ I defined LeNet function that has already knwon architecture to train model
 | RELU					|												|    									|
 | Fully connected		| input 100, output 43        									|
 
-And finally I tested this model to classify really German traffic sign download at google image
-
-(실제 사진 추가)
+And finally I tested this model to classify 5 really German traffic sign download at google image
 
 
 # Background Learning
