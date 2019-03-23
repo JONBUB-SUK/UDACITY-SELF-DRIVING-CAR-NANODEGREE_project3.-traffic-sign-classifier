@@ -99,12 +99,12 @@ my model was not good at prediction for new images
 
 Below is the reason I thought, why prediction for new images was not good
 
-1. I had to preprocess train images like turn it to gray scale
+### 1. I had to preprocess train images like turn it to gray scale
 
 Because I trained using RGB images, that means it has 3 times diversities, complexities more than gray scale images
 
 So it maybe more difficult to apply new one
 
-2. After trying several times, 12 epoch has best accuracy
+### 2. After trying several times, 12 epoch has best accuracy
 
 
