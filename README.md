@@ -72,9 +72,70 @@ And finally I tested this model to classify 5 really German traffic sign downloa
 
 # Background Learning
 
-* Deep Learning
-* LeNet architecture
-* Tensorflow
+### 1. Neural Network
+
+- Logistic regression
+
+- Applying to higher dimension
+
+- Perceptrons
+
+- Error functions
+
+- Softmax
+
+- One hot encoding
+
+- Gradient descent
+
+- Backpropagation
+
+- Neural Network architecture
+
+### 2. Tensorflow
+
+- Deep learning frameworks
+
+- Use tensorflow to apply Neural Net
+
+### 3. Deep Neural Net
+
+- ReLU
+
+- 2-Layer Neural Net
+
+- Training a Deep Learning network
+
+- Save and restore Tensorflow models
+
+- Regularization
+
+- Drop out
+
+### 4. Convolutional Neural Network
+
+- Characteristics of CNN
+
+- Filter
+
+- Number of parameters
+
+- Parameter sharing
+
+- Visualizing CNN
+
+- Sub sampling
+
+- Inception module
+
+
+### 5. LeNet
+
+- LeNet architecture
+
+- Use tensorflow to realize LeNet
+
+
 
 # Results
 
