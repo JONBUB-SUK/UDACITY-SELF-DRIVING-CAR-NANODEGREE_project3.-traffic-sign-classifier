@@ -264,7 +264,7 @@ def LeNet(x):
     return logits
 ```
 
-### 3. Train datad
+### 3. Train data
 
 Getting a train data, find optimum paprameters
 
