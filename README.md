@@ -17,7 +17,7 @@
 
 
 # Introduction
-This project onject is making traffic sign classifier by using tensorflow and accuracy of validation set have to upper than 93%
+This project object is making traffic sign classifier by using tensorflow and accuracy of validation set have to upper than 93%
 
 Traffic sign data set is given by 'German Traffic Sign Dataset'
 
