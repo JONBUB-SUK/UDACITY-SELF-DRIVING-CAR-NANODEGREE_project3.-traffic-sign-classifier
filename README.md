@@ -264,13 +264,215 @@ def LeNet(x):
     return logits
 ```
 
-### 3. Train data
+### 3. Train datad
+
+Getting a train data, find optimum paprameters
+
+For each EPOCH, calculate validation accuracy
+
+Finally I have to get a higher than 93% validation accuracy
+
+```python
+# import libraries
+import tensorflow as tf
+from tensorflow.contrib.layers import flatten
+
+# Setting x,y
+x = tf.placeholder(tf.float32, (None, 32,32,3))
+y = tf.placeholder(tf.int32, (None))
+one_hot_y = tf.one_hot(y, 43)
+
+# I will use softmax and Adam optimizer
+logits = LeNet(x)
+cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels = one_hot_y, logits = logits)
+loss_operation = tf.reduce_mean(cross_entropy)
+optimizer = tf.train.AdamOptimizer(learning_rate = rate)
+training_operation = optimizer.minimize(loss_operation)
+
+# It is optimum EPOCHS and BATCH_SIZE tuned
+EPOCHS = 12
+BATCH_SIZE = 128
+
+# Training and at the same time calculate validation accuracy for each EPOCHS
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    num_examples = len(X_train)
+    
+    print("Training....")
+    print()
+    for i in range(EPOCHS):
+        X_train, y_train = shuffle(X_train, y_train)
+        for offset in range(0, num_examples, BATCH_SIZE):
+            end = offset + BATCH_SIZE
+            batch_x, batch_y = X_train[offset:end], y_train[offset:end]
+            sess.run(training_operation, feed_dict={x:batch_x, y:batch_y})
+        validation_accuracy = evaluate(X_valid,y_valid)
+        print("EPOCH : {}".format(i+1))
+        print("Validation accuracy = {:.3f}".format(validation_accuracy))
+        print()
+
+    saver = tf.train.Saver()
+    saver.save(sess, 'lenet.ckpt')
+    print("Value saved")
+    
+```
+
+##### This is definition of evaluate function
+
+```python
+
+def evaluate(X_data, y_data):
+    num_examples = len(X_data)
+    total_accuracy = 0
+    sess = tf.get_default_session()
+    for offset in range(0, num_examples, BATCH_SIZE):
+        batch_x, batch_y = X_data[offset:offset + BATCH_SIZE], y_data[offset:offset + BATCH_SIZE]
+        accuracy = sess.run(accuracy_operation, feed_dict = {x:batch_x, y:batch_y})
+        total_accuracy += (accuracy * len(batch_x))
+        
+    return total_accuracy / num_examples
+    
+```
 
 
+##### After 12 EPOCHS, validation accuracy was 0.949
 
-### 4. Evaluate data
+
+### 4. Evaluate data (for test images)
+
+I loaded saved parameters (lenet.ckpt) and applied to test images
+
+```python
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    loader = tf.train.import_meta_graph('lenet.ckpt.meta')
+    loader.restore(sess, tf.train.latest_checkpoint('./'))
+    test_accuracy = evaluate(X_test, y_test)
+    print("Test Accuracy = {:.3f}".format(test_accuracy))
+    
+```
+
+##### Finally test accuracy was 92.6%
+
+
 
 ### 5. Apply to new image
+
+Until now, I trained and saved Lenet architecture parameters and now, I will test if this model can classifiy
+
+german traffic signs searched at google
+
+I downloaded German traffic signs at google, and resized image (32,32,3)
+
+##### 1. Preparation of new images
+
+```python
+
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+
+new_1 = 'resized_traffic_sign_1.png'
+new_1 = Image.open(new_1)
+
+new_2 = 'resized_traffic_sign_2.png'
+new_2 = Image.open(new_2)
+
+new_3 = 'resized_traffic_sign_3.png'
+new_3 = Image.open(new_3)
+
+new_4 = 'resized_traffic_sign_4.png'
+new_4 = Image.open(new_4)
+
+new_5 = 'resized_traffic_sign_5.png'
+new_5 = Image.open(new_5)
+
+image = []
+
+im_1 = np.array(new_1, dtype = np.float32)
+im_2 = np.array(new_2, dtype = np.float32)
+im_3 = np.array(new_3, dtype = np.float32)
+im_4 = np.array(new_4, dtype = np.float32)
+im_5 = np.array(new_5, dtype = np.float32)
+
+image.append(im_1)
+image.append(im_2)
+image.append(im_3)
+image.append(im_4)
+image.append(im_5)
+
+```
+
+##### 2. Restore parameters and do classify
+
+
+
+```python
+
+tf.reset_default_graph()
+
+conv1_W = tf.get_variable('conv1_W', shape = (5,5,3,20))
+conv1_b = tf.get_variable('conv1_b', shape = (20))
+conv2_W = tf.get_variable('conv2_W', shape = (5,5,20,50))
+conv2_b = tf.get_variable('conv2_b', shape = (50))
+fc1_W = tf.get_variable('fc1_W', shape = (1250,200))
+fc1_b = tf.get_variable('fc1_b',shape = (200))
+fc2_W = tf.get_variable('fc2_W',shape = (200,100))
+fc2_b = tf.get_variable('fc2_b',shape = (100))
+fc3_W = tf.get_variable('fc3_W',shape = (100,43))
+fc3_b = tf.get_variable('fc3_b',shape = (43))
+
+saver = tf.train.Saver()
+
+with tf.Session() as sess:
+    # Restore variables from disk.
+    saver.restore(sess, "lenet.ckpt")
+    print("Model restored.")
+
+    
+    softmax_new_images = []
+    
+    for i in range(5):
+        image_final = [tf.cast(image[i], tf.float32)]
+        test_index = LeNet_test(image_final)
+        logits = sess.run(test_index)
+        index_test = tf.argmax(logits, 1)
+        softmax_new_images.append(sess.run(tf.nn.softmax(logits)))
+        print("Y value for image", i+1, ":", sess.run(index_test))
+    
+    print(sess.run(tf.nn.top_k(tf.constant(np.squeeze(softmax_new_images)), k=5)))
+
+```
+
+##### This is definition of LeNet_test function
+
+```python
+
+def LeNet_test(x):
+    conv1 = tf.nn.conv2d(x, conv1_W, strides = [1,1,1,1], padding = 'VALID') + conv1_b
+    conv1 = tf.nn.relu(conv1)
+    conv1 = tf.nn.max_pool(conv1, ksize = [1,2,2,1], strides = [1,2,2,1], padding = 'VALID')
+    
+    conv2 = tf.nn.conv2d(conv1, conv2_W, strides = [1,1,1,1], padding = 'VALID') + conv2_b
+    conv2 = tf.nn.relu(conv2)
+    conv2 = tf.nn.max_pool(conv2, ksize = [1,2,2,1], strides = [1,2,2,1], padding = 'VALID')
+    
+    fc0 = flatten(conv2)
+    
+    fc1 = tf.matmul(fc0, fc1_W) + fc1_b
+    fc1 = tf.nn.relu(fc1)
+    
+    fc2 = tf.matmul(fc1, fc2_W) + fc2_b
+    fc2 = tf.nn.relu(fc2)
+    
+    fc3 = tf.matmul(fc2, fc3_W) + fc3_b
+    
+    logits = fc3
+    
+    return logits
+    
+```
 
 
 # Results
@@ -302,6 +504,6 @@ Because I trained using RGB images, that means it has 3 times diversities, compl
 
 So it maybe more difficult to apply new one
 
-### 2. After trying several times, 12 epoch has best accuracy
+
 
 
