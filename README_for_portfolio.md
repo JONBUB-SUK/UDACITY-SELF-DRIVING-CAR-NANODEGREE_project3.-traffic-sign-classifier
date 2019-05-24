@@ -37,6 +37,9 @@ And shape of each images is (32,32,3), that means image size is (32,32) and it h
 
 This is histogram of each dataset classes distribution
 
+
+<이 그림 세개는 통합해서 하나로 편집할 것>
+
 ![alt text][image1-1]
 
 ![alt text][image1-2]
@@ -47,7 +50,7 @@ This is histogram of each dataset classes distribution
 
 
 
-I defined LeNet function that has already knwon architecture to train model
+I defined LeNet function that has already known architecture
 
 
 | Layer         		|     Description	        					|
@@ -140,7 +143,7 @@ And finally I tested this model to classify 5 really German traffic sign downloa
 
 ## 3. Details
 
-#### 1) Load the data
+#### 1) Load Data
 
 The dataset is already devided into 3 parts
 
@@ -152,7 +155,6 @@ The dataset is already devided into 3 parts
 
 
 ```python
-# Load pickled data
 import pickle
 
 training_file = '../data/train.p'
@@ -172,93 +174,77 @@ X_test, y_test = test['features'], test['labels']
 ```
 
 
-#### 2) Define LeNet function
+#### 2) Define LeNet Function
 
 ```python
 from tensorflow.contrib.layers import flatten
 
 def LeNet(x):
-    # Hyperparameters
+
     mu = 0
     sig = 0.1
     
-    #solution : layer1 : convolutional  input = 32x32x3, filter = 5x5x3x20, output = 28x28x20
+
     conv1_W = tf.Variable(tf.truncated_normal(shape = (5,5,3,20), mean = mu, stddev = sig), name = 'conv1_W')
     
-    #Apply xavier initializer
     conv1_W = tf.get_variable("conv1_W", shape = (5,5,3,20), initializer = tf.contrib.layers.xavier_initializer())
     
     conv1_b = tf.Variable(tf.zeros(20), name = 'conv1_b')
+    
     conv1 = tf.nn.conv2d(x, conv1_W, strides = [1,1,1,1], padding = 'VALID') + conv1_b
     
-    #solution : Activation by Relu
     conv1 = tf.nn.relu(conv1)
     
-    #Apply Drop out
     #conv1 = tf.nn.dropout(conv1, keep_prob = keep_prob_train)
     
-    #solution : sub sampling by MAX POOLING   input = 28x28x20, kernel = 2x2, output = 14x14x20
     conv1 = tf.nn.max_pool(conv1, ksize = [1,2,2,1], strides = [1,2,2,1], padding = 'VALID')
     
-    #solution : Layer2 : convolutional  input = 14x14x20, filter = 5x5x20x50, output = 10x10x50
     conv2_W = tf.Variable(tf.truncated_normal(shape = (5,5,20,50), mean = mu, stddev = sig), name = 'conv2_W')
     
-    #Apply xavier initializer
     conv2_W = tf.get_variable("conv2_W", shape = (5,5,20,50), initializer = tf.contrib.layers.xavier_initializer())
     
     conv2_b = tf.Variable(tf.zeros(50), name = 'conv2_b')
+    
     conv2 = tf.nn.conv2d(conv1, conv2_W, strides = [1,1,1,1], padding = 'VALID') + conv2_b
     
-    #solution : Acitvation by Relu
-    
     conv2 = tf.nn.relu(conv2)
-    
-    #Apply Drop out
+
     #conv2 = tf.nn.dropout(conv2, keep_prob = keep_prob_train)
     
-    #solution : sub sampling by MAX POOLING  input = 10x10x50, kernel = 2x2, output = 5x5x50
     conv2 = tf.nn.max_pool(conv2, ksize = [1,2,2,1], strides = [1,2,2,1], padding = 'VALID')
     
-    #solution : flatten  input = 5x5x50, output = 1x1250
     fc0 = flatten(conv2)
     
-    #solution : Layer3 : Fully Connected  input = 1x1250, Weight = 1250x200, output = 1x200
     fc1_W = tf.Variable(tf.truncated_normal(shape = (1250,200), mean = mu, stddev = sig), name = 'fc1_W')
-    
-    #Apply xavier initializer
+
     fc1_W = tf.get_variable("fc1_W", shape = (1250,200), initializer = tf.contrib.layers.xavier_initializer())
     
     fc1_b = tf.Variable(tf.zeros(200), name = 'fc1_b')
+    
     fc1 = tf.matmul(fc0, fc1_W) + fc1_b
     
-    #solution : Activation by Relu
     fc1 = tf.nn.relu(fc1)
     
-    #Apply Drop out
     #fc1 = tf.nn.dropout(fc1, keep_prob = 0.7)    
-    
-    #solution : Layer4 : Fully Connected  input = 1x200, weight = 200x100, output = 1x100
+
     fc2_W = tf.Variable(tf.truncated_normal(shape = (200,100), mean = mu, stddev = sig), name = 'fc2_W')
     
-    #Apply xavier initializer
     fc2_W = tf.get_variable("fc2_W", shape = (200,100), initializer = tf.contrib.layers.xavier_initializer())
     
     fc2_b = tf.Variable(tf.zeros(100), name = 'fc2_b')
+    
     fc2 = tf.matmul(fc1, fc2_W) + fc2_b
-    
-    #solution : Activation by Relu
+
     fc2 = tf.nn.relu(fc2)
-    
-    #Apply Drop out
+
     #fc2 = tf.nn.dropout(fc2, keep_prob = 0.7) 
-    
-    #solution : Layer5 : Fully Connected  input = 1x100, weight = 100x43, output = 1x43
+
     fc3_W = tf.Variable(tf.truncated_normal(shape = (100,43), mean = mu, stddev = sig), name = 'fc3_W')
     
-    #Apply xavier initializer
     fc3_W = tf.get_variable("fc3_W", shape = (100,43), initializer = tf.contrib.layers.xavier_initializer())
     
     fc3_b = tf.Variable(tf.zeros(43), name = 'fc3_b')
+    
     fc3 = tf.matmul(fc2, fc3_W) + fc3_b
     
     logits = fc3
@@ -275,27 +261,22 @@ For each EPOCH, calculate validation accuracy
 Finally I have to get a higher than 93% validation accuracy
 
 ```python
-# import libraries
 import tensorflow as tf
 from tensorflow.contrib.layers import flatten
 
-# Setting x,y
 x = tf.placeholder(tf.float32, (None, 32,32,3))
 y = tf.placeholder(tf.int32, (None))
 one_hot_y = tf.one_hot(y, 43)
 
-# I will use softmax and Adam optimizer
 logits = LeNet(x)
 cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels = one_hot_y, logits = logits)
 loss_operation = tf.reduce_mean(cross_entropy)
 optimizer = tf.train.AdamOptimizer(learning_rate = rate)
 training_operation = optimizer.minimize(loss_operation)
 
-# It is optimum EPOCHS and BATCH_SIZE tuned
 EPOCHS = 12
 BATCH_SIZE = 128
 
-# Training and at the same time calculate validation accuracy for each EPOCHS
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     num_examples = len(X_train)
@@ -315,8 +296,7 @@ with tf.Session() as sess:
 
     saver = tf.train.Saver()
     saver.save(sess, 'lenet.ckpt')
-    print("Value saved")
-    
+    print("Value saved")  
 ```
 ```python
 
@@ -329,15 +309,14 @@ def evaluate(X_data, y_data):
         accuracy = sess.run(accuracy_operation, feed_dict = {x:batch_x, y:batch_y})
         total_accuracy += (accuracy * len(batch_x))
         
-    return total_accuracy / num_examples
-    
+    return total_accuracy / num_examples   
 ```
 
 Epochs : 12
 
 Validation loss: 0.949
 
-#### 4) Evaluate data (for test images)
+#### 4) Evaluate Data For Test Images
 
 I loaded saved parameters (lenet.ckpt) and applied to test images
 
@@ -423,7 +402,7 @@ fc3_b = tf.get_variable('fc3_b',shape = (43))
 saver = tf.train.Saver()
 
 with tf.Session() as sess:
-    # Restore variables from disk.
+
     saver.restore(sess, "lenet.ckpt")
     print("Model restored.")
 
@@ -484,6 +463,8 @@ Below is result of prediction
 
 
 ## 5. Discussion
+
+<이 부분 보강해야됨>
 
 As a result, although accuracy of test set was almost 93%, and I thought it was enough high to predict new traffic sign,
 
