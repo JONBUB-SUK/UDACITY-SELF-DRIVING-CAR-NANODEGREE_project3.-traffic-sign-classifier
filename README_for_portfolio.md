@@ -1,27 +1,13 @@
 # SELF DRIVING CAR NANODEGREE
 # Project3. Traffic Sign Classifier
 
-[//]: # (Image References)
-
-[image1-1]: ./images/2-train-dataset-graph.png "HISTOGRAM OF TRAIN DATA"
-[image1-2]: ./images/3-test-dataset-graph.png "HISTOGRAM OF TEST DATA"
-[image1-3]: ./images/4-valid-dataset-graph.png "HISTOGRAM OF VALID DATA"
-
-[image2]: ./images/결과.png "RESULT OF PREDICTION"
-
-[image3-1]: ./images/resized_traffic_sign_1.png "download image1"
-[image3-2]: ./images/resized_traffic_sign_2.png "download image2"
-[image3-3]: ./images/resized_traffic_sign_3.png "download image3"
-[image3-4]: ./images/resized_traffic_sign_4.png "download image4"
-[image3-5]: ./images/resized_traffic_sign_5.png "download image5"
-
-
-
 ## 1. Abstraction
 
-This project object is making traffic sign classifier by using tensorflow and accuracy of validation set have to upper than 93%
+The purpose of this project is to making traffic sign classifier by using tensorflow
 
-Traffic sign data set is given by 'German Traffic Sign Dataset'
+And rubric point is the accuracy of validation set have to upper than 93%
+
+Data set is given by 'German Traffic Sign Dataset'
 
 The dataset is already devided into 3 parts
 
@@ -44,25 +30,25 @@ This is histogram of each dataset classes distribution
 
 
 
-I defined LeNet function that has already known architecture
+I defined LeNet function to be trained that has already known architecture
 
 
 | Layer         		|     Description	        					|
 |:---------------------:|:---------------------------------------------:|
 | Input         		| 32x32x3 RGB image   							|
-| Convolution 5x5x3     	| 1x1 stride, valid padding, outputs 28x28x20 	|
+| Convolution 5x5x3     | 1x1 stride, valid padding, outputs 28x28x20 	|
 | RELU					|												|
 | Max pooling	      	| 2x2 stride,  outputs 14x14x20 				|
-| Convolution 5x5	    | 2x2 stride, valid padding, outputs 10x10x50    |
+| Convolution 5x5	    | 2x2 stride, valid padding, outputs 10x10x50   |
 | RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 5x5x50 				|
-| Flatten  	    |       outputs 1x1x1250    |
+| Max pooling	      	| 2x2 stride,  outputs 5x5x50 				    |
+| Flatten  	            | outputs 1x1x1250                              |
 | RELU					|												|
-| Fully connected		| input 1250, output 200        									|
-| RELU					|												|     									|
-| Fully connected		| input 200, output 100        									|
-| RELU					|												|    									|
-| Fully connected		| input 100, output 43        									|
+| Fully connected		| input 1250, output 200        				|
+| RELU					|												|     									
+| Fully connected		| input 200, output 100        					|
+| RELU					|												|    								
+| Fully connected		| input 100, output 43        					|
 
 And finally I tested this model to classify 5 really German traffic sign download at google image
 
@@ -139,13 +125,9 @@ And finally I tested this model to classify 5 really German traffic sign downloa
 
 #### 1) Load Data
 
-The dataset is already devided into 3 parts
+I loaded data that is already devided into 3 parts
 
-```train.p``` : 34799 images
-
-```test.p``` : 12630 images
-
-```validation.p``` : 4410 images
+And devide each data to X (features), Y (labels)
 
 
 ```python
@@ -248,11 +230,10 @@ def LeNet(x):
 
 #### 3) Train data
 
-Getting a train data, find optimum paprameters
+Using train data, I will find optimum parameters
 
-For each EPOCH, calculate validation accuracy
+I selected loss function for softmax cross entropy and Adamoptimizer
 
-Finally I have to get a higher than 93% validation accuracy
 
 ```python
 import tensorflow as tf
@@ -325,17 +306,17 @@ with tf.Session() as sess:
     
 ```
 
-Finally test accuracy was 92.6%
+Test accuracy : 92.6%
 
 
 
-#### 5) Apply to new image
+#### 5) Apply to new images
 
 Until now, I trained and saved Lenet architecture parameters and now, I will test if this model can classifiy
 
 german traffic signs searched at google
 
-I downloaded German traffic signs at google, and resized image (32,32,3)
+I downloaded German traffic signs at google, and resized image to (32,32,3)
 
 ① Preparation of new images
 
@@ -376,7 +357,7 @@ image.append(im_5)
 
 ```
 
-② Restore parameters and do classify
+② Restore parameters and apply to my LeNet_test function to classify traffic signs
 
 ```python
 
@@ -443,8 +424,8 @@ def LeNet_test(x):
 
 ## 4. Results
 
-* validation set accuracy of 94.9%
-* test set accuracy of 92.6%
+* Validation set accuracy : 94.9%
+* Test set accuracy : 92.6%
 
 I used this model to predict new traffic sign images downloaded at goole
 
