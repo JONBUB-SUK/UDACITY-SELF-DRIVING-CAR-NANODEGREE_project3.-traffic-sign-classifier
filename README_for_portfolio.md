@@ -48,7 +48,7 @@ I defined LeNet function to be trained that has already known architecture
 | RELU					|												|    								
 | Fully connected		| input 100, output 43        					|
 
-And finally I tested this model to classify 5 really German traffic sign download at google image
+And finally I tested this model to classify 5 real German traffic sign download at google image
 
 <img src="./images/resized_traffic_sign_1.png" width="100"> <img src="./images/resized_traffic_sign_2.png" width="100"> <img src="./images/resized_traffic_sign_3.png" width="100"> <img src="./images/resized_traffic_sign_4.png" width="100"> <img src="./images/resized_traffic_sign_5.png" width="100"> 
 
