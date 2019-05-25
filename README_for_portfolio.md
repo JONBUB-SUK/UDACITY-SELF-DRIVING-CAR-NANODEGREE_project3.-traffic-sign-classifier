@@ -452,27 +452,30 @@ I searched German traffic sign, thats because I trained by german traffic sign i
 
 Below is result of prediction
 
-![alt text][image2]
+<img src="./images/결과.png" width="700">
 
 
 
 ## 5. Discussion
 
-<이 부분 보강해야됨>
+If we see the result of test dataset, classification accuracy was good
 
-As a result, although accuracy of test set was almost 93%, and I thought it was enough high to predict new traffic sign,
+But result of applying to real traffic sign images was not good
 
-my model was not good at prediction for new images
+It means trained parameters are overfitted to data
 
-Below is the reason I thought, why prediction for new images was not good
+Above all, train data set has about 34000 images that are distributed to 43 sorts
 
-#### 1) I had to preprocess train images like turn it to gray scale
+That means each sort has under 1000 images
 
-Because I trained using RGB images, that means it has 3 times diversities, complexities more than gray scale images
+It is by no means a large amount
 
-So it maybe more difficult to apply new one
+It maybe effective augment train data
 
+We could rotate, crop, flip etc.. so could make more than 10,000 images for each class
 
+That will make our LeNet more powerful
 
+Secondly, it would be better using gray scale image than using RGB images
 
-
+Because our purpose is just classifying traffic signs, we need to reduce complexity
