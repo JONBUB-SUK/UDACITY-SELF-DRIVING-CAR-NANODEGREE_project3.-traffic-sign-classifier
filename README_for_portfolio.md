@@ -68,7 +68,7 @@ I defined LeNet function that has already known architecture
 
 And finally I tested this model to classify 5 really German traffic sign download at google image
 
-<img src="./images/resized_traffic_sign_1.png" width="200"> <img src="./images/resized_traffic_sign_2.png" width="200"> <img src="./images/resized_traffic_sign_3.png" width="200"> <img src="./images/resized_traffic_sign_4.png" width="200"> <img src="./images/resized_traffic_sign_5.png" width="200"> 
+<img src="./images/resized_traffic_sign_1.png" width="100"> <img src="./images/resized_traffic_sign_2.png" width="100"> <img src="./images/resized_traffic_sign_3.png" width="100"> <img src="./images/resized_traffic_sign_4.png" width="100"> <img src="./images/resized_traffic_sign_5.png" width="100"> 
 
 ![alt text][image3-1] ![alt text][image3-2] ![alt text][image3-3] ![alt text][image3-4] ![alt text][image3-5]
 
