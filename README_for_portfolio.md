@@ -40,11 +40,7 @@ This is histogram of each dataset classes distribution
 
 <이 그림 세개는 통합해서 하나로 편집할 것>
 
-![alt text][image1-1]
-
-![alt text][image1-2]
-
-![alt text][image1-3]
+<img src="./images/dataset distribution.png" width="800">
 
 [ image source : Ryein Goddard github (https://github.com/Goddard/udacity-traffic-sign-classifier)]
 
