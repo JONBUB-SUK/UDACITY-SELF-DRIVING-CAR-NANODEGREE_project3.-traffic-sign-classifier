@@ -5,7 +5,7 @@
 
 The purpose of this project is to making traffic sign classifier by using tensorflow
 
-And rubric point is the accuracy of validation set have to upper than 93%
+And rubric point is the accuracy of validation set that is upper than 93%
 
 Data set is given by 'German Traffic Sign Dataset' that is already devided into 3 parts
 
