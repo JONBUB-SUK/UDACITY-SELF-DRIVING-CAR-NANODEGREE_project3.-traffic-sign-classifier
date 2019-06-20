@@ -3,9 +3,9 @@
 
 ## 1. Abstraction
 
-The purpose of this project is to making traffic sign classifier by using tensorflow
+The purpose of this project is to make a traffic sign classifier by using tensorflow
 
-And rubric point is the accuracy of validation set that is upper than 93%
+And rubric point is upper than 93% of the accuracy of validation set
 
 Data set is given by 'German Traffic Sign Dataset' that is already devided into 3 parts
 
@@ -437,7 +437,7 @@ Below is result of prediction
 
 ## 5. Discussion
 
-If we see the result of test dataset, classification accuracy was good
+Seeing the result of test dataset, classification accuracy was good
 
 But result of applying to real traffic sign images was not good
 
@@ -451,10 +451,10 @@ It is by no means a large amount
 
 It maybe effective augment train data
 
-We could rotate, crop, flip etc.. so could make more than 10,000 images for each class
+I could rotate, crop, flip etc.. so could make more than 10,000 images for each class
 
 That will make our LeNet more powerful
 
 Secondly, it would be better using gray scale image than using RGB images
 
-Because our purpose is just classifying traffic signs, we need to reduce complexity
+Because our purpose is just classifying traffic signs, I need to reduce complexity
